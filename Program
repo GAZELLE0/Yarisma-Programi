@@ -1,3 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+
 namespace YarışmaÖrnek
 {
     public partial class Form1 : Form
@@ -8,8 +19,26 @@ namespace YarışmaÖrnek
         }
 
         SqlConnection baglan = new SqlConnection("Server=GAZELLE\\SQLEXPRESS;Database=Yarisma;User Id=ceylan;Password=1234567; connection timeout=30;");
-        private void button1_Click(object sender, EventArgs e)
+        int sayac = 0;
+        int puan = 0;
+        int zaman = 21;
+        private void buttonbasla_Click_1(object sender, EventArgs e)
         {
+            timer1.Enabled = true;
+            zaman = 21;
+
+            buttonbasla.Enabled = false;
+            button1A.Enabled = true;
+            button2B.Enabled = true;
+            button3C.Enabled = true;
+            button4D.Enabled = true;
+
+            buttonbasla.Text = "Sonraki";
+            sayac++;
+            labelSoru.Text =sayac.ToString();
+
+            if (sayac ==1)
+            { 
             baglan.Open();
             SqlCommand komut = new SqlCommand("Select * from Sorular orde by NEWID()", baglan);//Rastgele veri çekme
             SqlDataReader oku = komut.ExecuteReader();//Veri Okuma  
@@ -23,7 +52,122 @@ namespace YarışmaÖrnek
                 textBox1.Text = (oku["Soru"].ToString());
                 labelDogru.Text = (oku["Dogu"].ToString());
             }
+            baglan.Close();
+            }
+            if (sayac ==2)
+            {
+                baglan.Open();
+                SqlCommand komut = new SqlCommand("Select * from Sorular orde by NEWID()", baglan);//Rastgele veri çekme
+                SqlDataReader oku = komut.ExecuteReader();//Veri Okuma  
 
+                while (oku.Read())
+                {
+                    button1A.Text = (oku["CevapA"].ToString());
+                    button2B.Text = (oku["CevapB"].ToString());
+                    button3C.Text = (oku["CevapC"].ToString());
+                    button4D.Text = (oku["CevapD"].ToString());
+                    textBox1.Text = (oku["Soru"].ToString());
+                    labelDogru.Text = (oku["Dogu"].ToString());
+                }
+                baglan.Close();
+            }
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+            labelSoru.Text = sayac.ToString();
+            labelDogru.Visible = false;
+        }
+
+        private void button1A_Click_1(object sender, EventArgs e)
+        {
+            if (button1A.Text == labelDogru.Text)
+            {
+                puan = puan + 10;
+                labelpuan.Text = puan.ToString();
+                button1A.BackColor = Color.Green;
+            }
+            else
+            {
+                button1A.BackColor = Color.Red;
+            }
+            buttonbasla.Enabled = true;
+            button1A.Enabled = false;
+            button2B.Enabled = false;
+            button3C.Enabled = false;
+            button4D.Enabled = false;
+        }
+
+        private void button2B_Click_1(object sender, EventArgs e)
+        {
+            if (button2B.Text == labelDogru.Text)
+            {
+                puan = puan + 10;
+                labelpuan.Text = puan.ToString();
+                button2B.BackColor = Color.Green;
+            }
+            else
+            {
+                button2B.BackColor = Color.Red;
+            }
+            buttonbasla.Enabled = true;
+            button1A.Enabled = false;
+            button2B.Enabled = false;
+            button3C.Enabled = false;
+            button4D.Enabled = false;
+        }
+
+        private void button3C_Click_1(object sender, EventArgs e)
+        {
+            if (button3C.Text == labelDogru.Text)
+            {
+                puan = puan + 10;
+                labelpuan.Text = puan.ToString();
+                button3C.BackColor = Color.Green;
+            }
+            else
+            {
+                button3C.BackColor = Color.Red;
+            }
+            buttonbasla.Enabled = true;
+            button1A.Enabled = false;
+            button2B.Enabled = false;
+            button3C.Enabled = false;
+            button4D.Enabled = false;
+        }
+
+        private void button4D_Click_1(object sender, EventArgs e)
+        {
+            if (button4D.Text == labelDogru.Text)
+            {
+                puan = puan + 10;
+                labelpuan.Text = puan.ToString();
+                button4D.BackColor = Color.Green;
+            }
+            else
+            {
+                button4D.BackColor = Color.Red;
+            }
+            buttonbasla.Enabled = true;
+            button1A.Enabled = false;
+            button2B.Enabled = false;
+            button3C.Enabled = false;
+            button4D.Enabled = false;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            zaman = zaman - 1;
+            labelsure.Text = zaman.ToString(); 
+            if(zaman == 0)
+            {
+                timer1.Enabled = false;
+                button1A.Enabled = false;
+                button2B.Enabled = false;
+                button3C.Enabled = false;
+                button4D.Enabled = false;
+                buttonbasla.Enabled = true;
+            }
         }
     }
 }
