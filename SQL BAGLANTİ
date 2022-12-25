@@ -1,0 +1,13 @@
+//USİNG EKLEME
+using System.Data;
+using System.Data.SqlClient;
+
+//Bağlama Kodu
+private void button1_Click(object sender, EventArgs e)
+        {
+            string ConnectionString = "Server=GAZELLE\\SQLEXPRESS;Database=Yarisma;User Id=ceylan;Password=1234567; connection timeout=30;";
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString = ConnectionString; 
+            conn.Open();
+            MessageBox.Show("Bağlantı Açıldı");
+        }
