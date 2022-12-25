@@ -78,6 +78,9 @@ namespace YarışmaÖrnek
             labelSoru.Text = sayac.ToString();
             labelDogru.Visible = false;
         }
+        
+        
+//ŞIKLAR
 
         private void button1A_Click_1(object sender, EventArgs e)
         {
@@ -155,6 +158,7 @@ namespace YarışmaÖrnek
             button4D.Enabled = false;
         }
 
+//TİMER 
         private void timer1_Tick(object sender, EventArgs e)
         {
             zaman = zaman - 1;
